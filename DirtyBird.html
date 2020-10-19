@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Dirty Bird Text</title>
+    <script>
+      const normalRate = 0.6;
+      var alphabet = [["A","Å","À","Á","Â","Ã","Ä","Ā","Ă","Ą","Ǻ","Ά","Α"],
+      ["B","ß","Ɓ","Β","β"],["C","Ç","Ć","Ĉ","Ċ","Č","Ƈ","Ϲ"],["D","Ð","Ď","Ɗ"],
+      ["E","È","É","Ê","Ë","Ē","Ĕ","Ė","Ę","Ě","Έ","Ε","Ξ"],["F","Ƒ"],["G","Ĝ","Ğ","Ġ","Ģ","Ɠ","Ǥ","Ǧ","Ǵ"],
+      ["H","Ĥ","Ħ","Ή","Η"],["I","Ì","Í","Î","Ï","|","Ĩ","Ī","Ĭ","Į","İ","ǀ","Ί","Ι"],
+      ["J","Ĵ","ĵ"],["K","Ķ","Ƙ","Ǩ","Κ"],["L","Ĺ","Ļ","Ľ","Ŀ","Ł"],["M","Μ","Ϻ"],
+      ["N","Ñ","Ń","Ņ","Ň","Ŋ","Ɲ","Ǹ","Ν"],["O","Ò","Ó","Ô","Ô","Ö","Ø","Ō","Ŏ","Ő","Ơ","Ό","Θ","Ο"],
+      ["P","Ƥ","Ƿ","Ρ"],["Q","Ǫ","Ǭ"],["R","Ŕ","Ŗ","Ř","Ʀ"],
+      ["S","$","Š","Ś","Ŝ","Ş","Š","Ѕ"],["T","Ţ","Ť","Ŧ","Ɩ","Ƭ","Ʈ","Ͳ","Τ"],
+      ["U","Ù","Ù","Ù","Ù","Ũ","Ū","Ŭ","Ů","Ű","Ų","Ư","Ǖ","Ǘ","Ǚ","Ǜ"],["V","Ʋ"],["W","Ŵ","Ɯ"],
+      ["X","Χ"],["Y","Ý","¥","Ÿ","Ŷ","Ÿ","Ƴ","Ύ","Υ"],["Z","Ž","Ź","Ż","Ž","Ƶ","Ζ"],
+      ["a","à","á","â","ã","ä","å","ā","ă","ą","ǻ","α"],["b","ƀ","Ƅ","ƅ"],
+      ["c","ç","¢","ć","ĉ","ċ","č","ƈ","ϲ"],["d","ď","đ"],["e","è","é","ê","ë","ē","ĕ","ė","ę","ě"],
+      ["f","ƒ"],["g","ĝ","ğ","ġ","ģ","ǥ","ǧ","ǵ"],["h","ĥ","ħ"],
+      ["i","¡","ì","í","î","ï","ĩ","ī","ĭ","į","ı"],["j","ǰ"],
+      ["k","ķ","ĸ","ƙ","ǩ","κ"],["l","ĺ","ļ","ľ","ŀ","ł"],["m"],["n","ñ","ń","ņ","ň","ŉ","ŋ","ƞ","ǹ"],
+      ["o","ð","ò","ó","ô","õ","ö","ø","ō","ŏ","ő","ơ","ο"],["p","Þ","þ","ƿ","ρ"],["q","ǫ","ǭ"],
+      ["r","ŕ","ŗ","ř"],["s","š","ś","ŝ","ş","š"],["t","†","ţ","ť","ŧ","ƭ"],
+      ["u","µ","ù","ú","û","ü","ũ","ū","ŭ","ů","ű","ų","ư","ǖ","ǘ","ǚ","ǜ","υ"],["v"],["w","ŵ"],
+      ["x","×"],["y","ý","ÿ","ŷ","ƴ","γ"],["z","ž","ź","ż","ž","ƶ"]];
+      window.onload = function() {
+        document.getElementById("post").addEventListener("input", (event) => {
+          if (Math.random() < normalRate) { return; }
+          shuffle();
+        });
+      };
+      function shuffle() {
+        const currentString = document.getElementById("post").value;
+        const stringLength = currentString.length;
+        const currentChar = currentString.charAt(stringLength - 1);
+        for (var letter of alphabet) {
+          if (letter.includes(currentChar)) {
+            const newChar = letter[Math.floor(Math.random() * letter.length)];
+            document.getElementById("post").value = currentString.slice(0, -1) + newChar;
+            break;
+          }
+        }
+      }
+      function reshuffle() {
+        var newPost = "";
+        for (var character of document.getElementById("post").value) {
+          if (Math.random() < normalRate) {
+            newPost += character;
+            continue;
+          }
+          var swapped = false;
+          for (var letter of alphabet) {
+            if (letter.includes(character)) {
+              const newChar = letter[Math.floor(Math.random() * letter.length)];
+              newPost += newChar;
+              swapped = true;
+              break;
+            }
+          }
+          if (!swapped) {
+            newPost += character;
+          }
+        }
+        document.getElementById("post").value = newPost;
+      }
+    </script>
+  </head>
+  <body>
+    <textarea id="post" style="top: 0px; left: 0px; width: 100%; height: 50%; font-size: 2em;"></textarea>
+    <button onclick="reshuffle()">Reshuffle</button>
+  </body>
+</html>
